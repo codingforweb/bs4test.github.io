@@ -4,6 +4,9 @@ window.addEventListener('load', () => {
     let temperatureDescription = document.querySelector('.temperature-description');
     let temperatureDegree = document.querySelector('.temperature-degree');
     let locationTimeZone = document.querySelector('.location-timezone');
+    let temperatureSection = document.querySelector('.degree-section');
+    let temperatureDegreeSpan = document.querySelector('.degree-section span');
+
 
     //Get geoposition, getting popup,allow or deny geoposition
 
@@ -19,7 +22,6 @@ window.addEventListener('load', () => {
             fetch(api)
                 .then(response => {
                     return response.json();
-
                 })
                 .then(data => {
                     console.log(data);
@@ -34,9 +36,19 @@ window.addEventListener('load', () => {
                     locationTimeZone.textContent = data.timezone;
                     setIcons(icon, document.querySelector(".icon"));
 
+                    temperatureSection.addEventListener('click', function () {
+                        if (temperatureDegreeSpan.textContent === 'F') {
+                            temperatureDegreeSpan.textContent = 'C';
+                        } else {
+                            temperatureDegreeSpan.textContent = 'F';
+                        }
+                    });
+
                 });
+
         });
     }
+
 
     function setIcons(icon, iconID) {
         const skycons = new Skycons({
@@ -44,7 +56,7 @@ window.addEventListener('load', () => {
         });
         const currentIcon = icon.replace(/-/g, "_").toUpperCase();
         skycons.play();
-        return Skycons.set(iconID, Skycons[currentIcon]);
+        return skycons.set(iconID, Skycons[currentIcon]);
 
     }
 });
