@@ -36,11 +36,15 @@ window.addEventListener('load', () => {
                     locationTimeZone.textContent = data.timezone;
                     setIcons(icon, document.querySelector(".icon"));
 
+                    let celcius = (temperature - 32) * 5 / 9;
+
                     temperatureSection.addEventListener('click', function () {
                         if (temperatureDegreeSpan.textContent === 'F') {
                             temperatureDegreeSpan.textContent = 'C';
+                            temperatureDegree.textContent = Math.round(celcius);
                         } else {
                             temperatureDegreeSpan.textContent = 'F';
+                            temperatureDegree.textContent = temperature;
                         }
                     });
 
